@@ -1,0 +1,222 @@
+﻿@model FastMoney.Models.ViewModels.TransactionViewModel
+@{
+    ViewData["Title"] = "FundTransfer";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="card-blue">
+            <div class="card-header">Fund Transfer</div>
+            <div class="card-content">
+                <form method="post" asp-action="FundTransfer">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="ApplicationUser.Id" class="form-control" />
+                    @*<div class="form-group">
+            <label asp-for="ApplicationUser.Name"></label>
+            <input asp-for="ApplicationUser.Name" class="form-control" disabled/>
+            <span asp-validation-for="ApplicationUser.Name" class="text-danger"></span>
+        </div>*@
+
+                    @*<div class="form-group">
+            <label asp-for="ApplicationUser.AccountNumber"></label>
+            <input asp-for="ApplicationUser.AccountNumber" class="form-control" disabled/>
+            <span asp-validation-for="ApplicationUser.AccountNumber" class="text-danger"></span>
+        </div>*@
+
+                    @*<div class="form-group">
+            <label asp-for="ApplicationUser.IdentificationNumber"></label>
+            <input asp-for="ApplicationUser.IdentificationNumber" class="form-control" disabled/>
+            <span asp-validation-for="ApplicationUser.IdentificationNumber" class="text-danger"></span>
+        </div>*@
+
+                    @*<div class="form-group">
+            <label asp-for="ApplicationUser.PhoneNumber"></label>
+            <input asp-for="ApplicationUser.PhoneNumber" class="form-control" disabled/>
+            <span asp-validation-for="ApplicationUser.PhoneNumber" class="text-danger"></span>
+        </div>*@
+
+                    @*<div class="form-group">
+            <label asp-for="ApplicationUser.Email"></label>
+            <input asp-for="ApplicationUser.Email" class="form-control" disabled/>
+            <span asp-validation-for="ApplicationUser.Email" class="text-danger"></span>
+        </div>*@
+
+                    <div class="form-group">
+                        <label asp-for="Transaction.BeneficiaryAccountNumber"></label>
+                        <input asp-for="Transaction.BeneficiaryAccountNumber" class="form-control" id="beneficiaryAccountNumber" required/>
+                        <span asp-validation-for="Transaction.BeneficiaryAccountNumber" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Transaction.BeneficiaryName"></label>
+                        <input asp-for="Transaction.BeneficiaryName" class="form-control" id="beneficiaryName" required/>
+                        <span asp-validation-for="Transaction.BeneficiaryName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Transaction.BeneficiaryBankName"></label>
+                        <input asp-for="Transaction.BeneficiaryBankName" class="form-control" id="beneficiaryPhoneNumber" required/>
+                        <span asp-validation-for="Transaction.BeneficiaryBankName" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Transaction.BeneficiaryPhoneNumber"></label>
+                        <input asp-for="Transaction.BeneficiaryPhoneNumber" class="form-control" id="beneficiaryEmail" required/>
+                        <span asp-validation-for="Transaction.BeneficiaryPhoneNumber" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Transaction.BeneficiaryEmail"></label>
+                        <input asp-for="Transaction.BeneficiaryEmail" class="form-control" id="beneficiaryEmail" required/>
+                        <span asp-validation-for="Transaction.BeneficiaryEmail" class="text-danger"></span>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="ApplicationUser.CurrentBalance">Your Current Balance</label>
+                                <input asp-for="ApplicationUser.CurrentBalance" class="form-control" disabled />
+                                <span asp-validation-for="ApplicationUser.CurrentBalance" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label asp-for="Transaction.Amount"></label>
+                                <input asp-for="Transaction.Amount" class="form-control" required/>
+                                <span asp-validation-for="Transaction.Amount" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Transaction.Remarks"></label>
+                        <input asp-for="Transaction.Remarks" class="form-control" />
+                        <span asp-validation-for="Transaction.Remarks" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <span class="text-danger">@ViewBag.Error</span>
+                    </div>
+
+
+
+                    @*<div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label id="lblotp">Enter OTP</label>
+                    <input type="text" class="form-control" id="txtOtp" />
+                    <button type="button" class="btn btn-success text-white" id="btnVerifyOtp"><i class="fa fa-check" aria-hidden="true"></i></button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <button type="button" class="btn btn-success text-white form-control" id="btnSendOtp"><i class="fa fa-paper-plane" aria-hidden="true"></i>Submit</button>
+                </div>
+            </div>
+        </div>*@
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success text-white form-control" id="btnSubmit"><i class="fa fa-check-square" aria-hidden="true"></i>Transfer</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <a asp-action="Index" class="btn btn-primary form-control"><i class="fa fa-list" aria-hidden="true"></i> Back To List</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+
+            //$("#txtOtp").hide();
+            //$("#lblotp").hide();
+            //$("#btnVerifyOtp").hide();
+            //$("#btnSubmit").prop('disabled', true);
+
+            $("#beneficiaryAccountNumber").focusout(function () {
+                var searchTerm = $("#beneficiaryAccountNumber").val();
+                $.ajax({
+                    url: "/Transaction/SearchBeneficiary?accountNumber="+ searchTerm+"",
+                    dataType: "json",
+                    method: 'POST',
+                    success: function (data) {
+                        $('#beneficiaryName').val(data[0]['name']);
+                        $('#beneficiaryPhoneNumber').val(data[0]['phoneNumber']);
+                        $('#beneficiaryEmail').val(data[0]['email']);
+                        $('#beneficiaryId').val(data[0]['id']);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                });
+            });
+
+
+            //$("#btnSendOtp").click(function () {
+            //    $.ajax({
+            //        url: "/Transaction/SendOtp",
+            //        dataType: "json",
+            //        method: 'POST',
+            //        success: function (data) {
+            //            $("#txtOtp").show();
+            //            $("#lblotp").show();
+            //            $("#btnVerifyOtp").show();
+            //            $("#btnSendOtp").hide();
+            //        },
+            //        error: function (err) {
+            //            alert(err);
+            //        }
+            //    });
+            //});
+
+
+            //$("#btnVerifyOtp").click(function () {
+            //    var otpValue = $("#txtOtp").val();
+
+            //    if (otpValue == '') {
+            //        alert('Enter Otp.');
+                    
+            //    }
+            //    else {
+
+            //    $.ajax({
+            //        url: "/Transaction/VerifyOtp?otpValue=" + otpValue + "",
+            //        dataType: "json",
+            //        method: 'POST',
+            //        success: function (data) {
+            //            $("#btnSubmit").prop('disabled', false);
+            //            $("#btnVerifyOtp").hide();
+            //             $("#txtOtp").hide();
+            //             $("#lblotp").hide();
+                        
+            //        },
+            //        error: function (err) {
+            //            alert('Wrong Otp.');
+            //            $("#btnSubmit").prop('disabled', true);
+                        
+            //        }
+            //    });
+
+            //}
+            //});
+
+        });
+    </script>
+}
+
+

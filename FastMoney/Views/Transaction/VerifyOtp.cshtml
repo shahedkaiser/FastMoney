@@ -1,0 +1,75 @@
+﻿@model FastMoney.Models.ViewModels.TransactionViewModel
+@{
+    ViewData["Title"] = "VerifyOtp";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="card-blue">
+            <div class="card-header">Fund Transfer</div>
+            <div class="card-content">
+                <form method="post" asp-action="FundTransfer">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label id="lblotp">Enter OTP</label>
+                                    <input type="text" class="form-control" id="txtOtp" />
+                                    <button type="button" class="btn btn-success text-white" id="btnVerifyOtp"><i class="fa fa-check" aria-hidden="true"></i> Verify OTP</button>
+                                </div>
+                            </div>
+                            
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <a asp-action="GetAllTransactionForCustomer" class="btn btn-primary form-control"><i class="fa fa-list" aria-hidden="true"></i> Back To List</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+
+           
+            $("#btnVerifyOtp").click(function () {
+                var otpValue = $("#txtOtp").val();
+
+                if (otpValue == '' || otpValue==0) {
+                    alert('Enter Otp.');
+
+                }
+                else {
+
+                $.ajax({
+                    url: "/Transaction/VerifyOtpByCustomer?id="+@Model.Transaction.Id+"&otp=" + otpValue + "",
+                    dataType: "json",
+                    method: 'POST',
+                    success: function (data) {
+                        window.location.replace("/Status/TransactionSuccess");
+                    },
+                    error: function (err) {
+                        alert('Wrong OTP.');
+                    }
+                });
+
+            }
+            });
+
+        });
+    </script>
+}
+
+
+

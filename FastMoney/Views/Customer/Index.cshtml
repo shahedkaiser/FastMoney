@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card-green">
+            <div class="card-header">Customer List</div>
+            <div class="card-content">
+
+                <table id="userTable" class="display nowrap table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr class="table-secondary">
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Account Number
+                            </th>
+                            <th>
+                                Current Balance
+                            </th>
+                            <th>
+                                Email
+                            </th>
+                            <th>
+                                Phone Number
+                            </th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+
+    <script src="~/datatable/jquery.dataTables.min.js"></script>
+    <script src="~/datatable/dataTables.buttons.min.js"></script>
+    <script src="~/datatable/jszip.min.js"></script>
+    <script src="~/datatable/pdfmake.min.js"></script>
+    <script src="~/datatable/vfs_fonts.js"></script>
+    <script src="~/datatable/buttons.html5.min.js"></script>
+    <script src="~/datatable/buttons.print.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            dataTable = $("#userTable").DataTable({
+                "dom": "Bfrtip",
+        "buttons": [
+            "copy", "csv", "excel", "pdf", "print"
+        ],
+                "ajax": {
+                    "url": "/Customer/GetAllCustomer",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+
+                "columns": [
+                    { "data": "name" },
+                    { "data": "accountNumber" },
+                    { "data": "currentBalance", render: $.fn.dataTable.render.number( ',', '.', 0, '$' )},
+                    { "data": "email" },
+                    { "data": "phoneNumber" },
+                    {
+                        "data": "id", "render": function (data) {
+                            return "<a class='btn btn-primary text-white' href='/Customer/Edit/" + data + "'><i class='fas fa-edit'></i></a> <a class='btn btn-success text-white' href='/Customer/Details/" + data + "'><i class='fas fa-eye'></i></a> <a class='btn btn-success text-white' href='/Customer/Deposit/" + data + "'><i class='fas fa-money-bill-alt'></i></a>"
+                        },
+                        "scrollX": true,
+                    }
+
+                ],
+
+                "language": {
+                    "emptyTable":"No data found. Click on <b>Create New</b> button."
+                }
+            })
+
+        });
+
+    </script>
+
+}
+
+
